@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -29,7 +30,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'emoji' => 'nullable|string|max:10',
+            'description' => 'nullable|string',
+        ]);
+
+        Category::create([
+            'name' => $request->name,
+            'emoji' => $request->emoji,
+            'slug' => Str::slug($request->name),
+            'description' => $request->description,
+        ]);
+
+        return redirect()->route('categories.index');
     }
 
     /**
