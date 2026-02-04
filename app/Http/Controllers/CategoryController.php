@@ -67,7 +67,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+         $request->validate([
+            'name' => 'required|string|max:255',
+            'emoji' => 'nullable|string|max:10',
+            'description' => 'nullable|string',
+        ]);
+
+        $category->update([
+            'name' => $request->name,
+            'emoji' => $request->emoji,
+            'slug' => Str::slug($request->name),
+            'description' => $request->description,
+        ]);
     }
 
     /**
