@@ -29,7 +29,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated['images.*'] = 'image|mimes:jpg,png,jpeg|max:2048';
+        DB::transaction(function () use ($request, $validated) {
+
+            $product = Product::create($validated);
+
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $index => $image) {
+                    $product->images()->create([
+                        'image_path' => $image->store('products','public'),
+                        'is_main' => $index === 0,
+                    ]);
+                }
+            }
+        });
+        return redirect('/product/products')->with('success','Product Created');
     }
 
     /**
@@ -54,13 +68,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //     $table->foreignId('category_id')->constrained();
-        //     $table->foreignId('supplier_id')->constrained();
-        //     $table->string('name',50);
-        //     $table->text('description')->nullable();
-        //     $table->integer('stock');
-        //     $table->decimal('price',10,2);
-        //     $table->string('reference');
         $validated = $request->validate([
             'category_id' => 'required|integer',
             'supplier_id' => 'required|integer',
