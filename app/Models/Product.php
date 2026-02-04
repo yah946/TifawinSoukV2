@@ -9,4 +9,10 @@ class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
+    public function images(){
+        return $this->hasMany(Image::class);
+    }
+    public function cover(){
+        return $this->hasOne(Image::class)->where('cover',true);
+    }
 }
