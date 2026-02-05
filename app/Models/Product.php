@@ -4,21 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
-    use HasFactory;
-    public function images(){
+    use HasFactory, SoftDeletes;
+
+    public function images(): HasMany
+    {
         return $this->hasMany(Image::class);
     }
-    public function cover(){
-        return $this->hasOne(Image::class)->where('cover',true);
+
+    public function cover(): HasOne
+    {
+        return $this->hasOne(Image::class)->where('cover', true);
     }
-    
-      use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'category_id',
@@ -30,12 +34,12 @@ class Product extends Model
         'reference',
     ];
 
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function supplier()
+    public function supplier(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);
     }
