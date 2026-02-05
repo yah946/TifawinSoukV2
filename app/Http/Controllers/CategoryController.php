@@ -59,7 +59,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+         return view('categories.edit', compact('category'));
     }
 
     /**
@@ -67,7 +67,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:70',
+            'emoji' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $category->update([
+            'name' => $request->name,
+            'emoji' => $request->emoji,
+            'slug' => str_replace(' ','_',str_replace(' & ',' ',$validated['name'])).random_int(1,1000),
+            'description' => $request->description,
+        ]);
     }
 
     /**
@@ -75,6 +86,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        
+        $category->delete();
+     
+        
     }
 }
