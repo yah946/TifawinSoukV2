@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
            $products = Product::all();
-        return view("products.index", compact("products"));
+        return view("admin.products.index", compact("products"));
     }
 
     /**
@@ -26,7 +26,7 @@ class ProductController extends Controller
            $categories = Category::all();
         $suppliers = Supplier::all();
 
-        return view('products.create', compact('categories', 'suppliers'));
+        return view('admin.products.create', compact('categories', 'suppliers'));
     }
 
     /**
@@ -46,7 +46,7 @@ class ProductController extends Controller
 
         Product::create($validated);
 
-        return redirect()->route('products.index')
+        return redirect()->route('admin.products.index')
                          ->with('success', 'Product created successfully.');
     
     }
@@ -78,8 +78,13 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
-    {
-        //
-    }
+    
+        public function destroy(Product $product)
+{
+    $product->delete(); // كيمسح المنتج من DB
+    return redirect()->route('products.index')
+                     ->with('success', 'Product deleted successfully.');
 }
+
+    }
+

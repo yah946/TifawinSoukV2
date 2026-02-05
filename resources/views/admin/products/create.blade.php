@@ -54,7 +54,7 @@
 
         <div class="mb-3">
             <label for="description" >Description</label>
-            <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
+            <textarea name="description" id="description" class="form-control"></textarea>
         </div>
 
         <div class="mb-3">
@@ -73,7 +73,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Create Product</button>
-        <a href="{{ route('products.index') }}" >Cancel</a>
+        <a href="{{ route('admin.products.index') }}" >Cancel</a>
     </form>
 </div>
 </body>

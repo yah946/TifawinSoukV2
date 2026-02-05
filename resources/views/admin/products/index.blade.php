@@ -35,15 +35,16 @@
                 <td>{{ $product->category->name }}</td>
                 <td>{{ $product->supplier->name }}</td>
                 <td>{{ $product->created_at }}</td>
-                <td>
+               <td>
                     <a href="{{ route('products.show', $product->id) }}">view</a> |
-                    <a href="{{ route('products.edit', $product->id) }}">edit</a>
+                    <a href="{{ route('products.edit', $product->id) }}">edit</a> |
                     <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit">delete</button>
+                        <button type="submit" onclick="return confirm('Are you sure?')">delete</button>
                     </form>
                 </td>
+
             </tr>
         @endforeach
     </tbody>
