@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained();
             $table->string('path');
-            $table->decimal('size');
+            $table->boolean('cover')->default(false);
             $table->timestamps();
         });
     }
