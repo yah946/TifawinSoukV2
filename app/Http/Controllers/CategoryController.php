@@ -67,16 +67,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-         $request->validate([
-            'name' => 'required|string|max:255',
-            'emoji' => 'nullable|string|max:10',
+        $validated = $request->validate([
+            'name' => 'required|string|max:70',
+            'emoji' => 'nullable|string|max:255',
             'description' => 'nullable|string',
         ]);
 
         $category->update([
             'name' => $request->name,
             'emoji' => $request->emoji,
-            'slug' => Str::slug($request->name),
+            'slug' => str_replace(' ','_',str_replace(' & ',' ',$validated['name'])).random_int(1,1000),
             'description' => $request->description,
         ]);
     }
