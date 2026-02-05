@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
-Use App\Models\Category;
 use App\Models\Supplier;
 
 class ProductController extends Controller
@@ -14,8 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-           $products = Product::all();
-        return view("admin.products.index", compact("products"));
+        $products = Product::all();
+        return view("products.index", compact("products"));
     }
 
     /**
@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-           $categories = Category::all();
+        $categories = Category::all();
         $suppliers = Supplier::all();
 
         return view('admin.products.create', compact('categories', 'suppliers'));
@@ -34,6 +34,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $validated['images.*'] = 'image|mimes:jpg,png,jpeg|max:2048';
+        DB::transaction(function () use ($request, $validated) {
+
+            $product = Product::create($validated);
+
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $index => $image) {
+                    $product->images()->create([
+                        'image_path' => $image->store('products','public'),
+                        'is_main' => $index === 0,
+                    ]);
+                }
+            }
+        });
+        return redirect('/product/products')->with('success','Product Created');
         $validated = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'supplier_id' => 'required|exists:suppliers,id',
@@ -64,7 +79,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all() ;
+        return view('update',compact('categories','images','suppliers'));
     }
 
     /**
@@ -72,19 +88,25 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validated = $request->validate([
+            'category_id' => 'required|integer',
+            'supplier_id' => 'required|integer',
+            'name' => 'required|string|max:50',
+            'description' => 'nullable|string',
+            'stock' => 'required|integer|min:0',
+            'price' => 'required|numeric|gt:0',
+        ]);
+        $validated['reference'] = str_replace(' ','_',$validated['name']).$validated['supplier_id'];
+        $product->update($validated);
+        return redirect('/product/products')->with('success','Product has been Updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    
-        public function destroy(Product $product)
-{
-    $product->delete(); // كيمسح المنتج من DB
-    return redirect()->route('products.index')
-                     ->with('success', 'Product deleted successfully.');
-}
-
+    public function destroy(Product $product)
+    {
+        $product->delete();
+        return back()->with('success','product has been deleted');
     }
 

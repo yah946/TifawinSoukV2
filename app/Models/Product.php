@@ -10,6 +10,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
+    use HasFactory;
+    public function images(){
+        return $this->hasMany(Image::class);
+    }
+    public function cover(){
+        return $this->hasOne(Image::class)->where('cover',true);
+    }
     
       use HasFactory, SoftDeletes;
 
@@ -39,5 +46,13 @@ class Product extends Model
     public function supplier()
     {
         return $this->belongsTo(Supplier::class);
+<<<<<<< HEAD
+=======
+    }
+
+    public function orderItems(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
+>>>>>>> 740e96b4378248f9317760ad775b2ae55e79b8a4
     }
 }
