@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
@@ -14,13 +15,13 @@ class Category extends Model
     protected $fillable = ['name', 'emoji','slug','description'];
 
 
-    public function products(){
-
+    public function products(): HasMany
+    {
         return $this->hasMany(Product::class);
 
     }
 
-    
+
 
 
 

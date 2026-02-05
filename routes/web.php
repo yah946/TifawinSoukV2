@@ -8,3 +8,5 @@ Route::get('/', function () {
 });
 
 Route::resource('products', ProductController::class);
+
+require_once __DIR__ . '/admin.php';
