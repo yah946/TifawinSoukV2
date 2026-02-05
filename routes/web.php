@@ -7,7 +7,7 @@ Route::get('/', function () {
 });
 
 /* Admin */
-Route::get('/admin', [ProductController::class, 'index'])
+Route::get('/admin/products', [ProductController::class, 'index'])
     ->name('admin.products.index');
 
 
