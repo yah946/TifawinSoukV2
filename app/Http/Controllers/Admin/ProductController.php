@@ -28,7 +28,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $suppliers = Supplier::all();
 
-        return view('products.create', compact('categories', 'suppliers'));
+        return view('admin.products.create', compact('categories', 'suppliers'));
     }
 
     /**
@@ -63,7 +63,7 @@ class ProductController extends Controller
 
         Product::create($validated);
 
-        return redirect()->route('products.index')
+        return redirect()->route('admin.products.index')
                          ->with('success', 'Product created successfully.');
 
     }
@@ -111,4 +111,4 @@ class ProductController extends Controller
         $product->delete();
         return back()->with('success','product has been deleted');
     }
-}
+
