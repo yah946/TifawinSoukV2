@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
-Use App\Models\Category;
 use App\Models\Supplier;
 
 class ProductController extends Controller
@@ -15,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-           $products = Product::all();
+        $products = Product::all();
         return view("products.index", compact("products"));
     }
 
@@ -24,7 +23,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-           $categories = Category::all();
+        $categories = Category::all();
         $suppliers = Supplier::all();
 
         return view('products.create', compact('categories', 'suppliers'));
@@ -74,13 +73,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //     $table->foreignId('category_id')->constrained();
-        //     $table->foreignId('supplier_id')->constrained();
-        //     $table->string('name',50);
-        //     $table->text('description')->nullable();
-        //     $table->integer('stock');
-        //     $table->decimal('price',10,2);
-        //     $table->string('reference');
         $validated = $request->validate([
             'category_id' => 'required|integer',
             'supplier_id' => 'required|integer',
