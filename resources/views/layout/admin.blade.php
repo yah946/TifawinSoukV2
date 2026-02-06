@@ -1,7 +1,13 @@
 <!doctype html>
 <html lang="fr">
 
+
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://kit.fontawesome.com/fd784d3edb.js" crossorigin="anonymous"></script>
+  <title>Dashboard</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -12,12 +18,12 @@
 <body class="flex  font-sans bg-gray-100">
 
   <!-- SIDEBAR -->
-  <aside class="sticky top-0 h-screen w-[15%] 
+  <aside class="sticky top-0 h-screen w-[15%] border-r-2
                 bg-linear-to-t from-[#ffa929] to-[#ff9d26] flex flex-col">
 
     <!-- PLATFORM NAME -->
     <div class="flex flex-col items-center py-4">
-      <p class="font-bold text-lg text-amber-50"> TIFAWIN SOUK <i class="fa-solid fa-basket-shopping"></i></p>
+      <p class="font-bold text-lg text-amber-50"> <i class="fa-solid fa-basket-shopping"></i>TIFAWIN SOUK</p>
       <hr class="border-4 w-3/4 mt-2">
     </div>
 
@@ -38,11 +44,11 @@
         <span class="font-medium">CATEGORIES</span>
       </a>
 
-      <a href="{{route('admin.products.index')}}" class="flex items-center gap-3 text-white hover:text-green-400">
+      <a href="{{route('admin.suppliers.index')}}" class="flex items-center gap-3 text-white hover:text-green-400">
         <i class="fa-solid fa-user-tie text-lg"></i>
         <span class="font-medium">SUPPLIERS</span>
       </a>
-       <a href="{{route('admin.products.index')}}" class="flex items-center gap-3 text-white hover:text-green-400">
+       <a href="{{route('admin.orders.index')}}" class="flex items-center gap-3 text-white hover:text-green-400">
       <i class="fa-solid fa-cart-arrow-down"></i>
         <span class="font-medium">COMMENDS</span>
       </a>

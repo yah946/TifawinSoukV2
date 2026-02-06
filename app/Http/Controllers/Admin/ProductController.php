@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DB;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\DB;
@@ -114,7 +112,7 @@ class ProductController extends Controller
         return back()->with('success','product has been deleted');
     }
 
-<<<<<<< HEAD
+
 
     public function dashboard()
 {
@@ -125,5 +123,3 @@ class ProductController extends Controller
     return view('admin.dashboard', compact('productCount', 'categoryCount', 'supplierCount'));
 }
 }
-=======
->>>>>>> ad303fc (feat:add_path_of_admin_gestion)
