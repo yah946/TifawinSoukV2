@@ -1,10 +1,9 @@
 <?php
-use App\Http\Controllers\ProductController;
+
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ProductController::class, 'index']);
 
 Route::get('/admin', [ProductController::class, 'dashboard'])
     ->name('admin.dashboard');
