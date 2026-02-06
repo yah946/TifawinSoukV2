@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('city',50);
             $table->string('email',100)->unique();
             $table->string('phone_number',20)->unique();
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }
