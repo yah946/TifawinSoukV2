@@ -5,8 +5,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'index']);
 
+Route::get('/admin', [ProductController::class, 'dashboard'])
+    ->name('admin.dashboard');
+
 /* Admin */
-Route::get('/admin', [ProductController::class, 'index'])
+Route::get('/admin/products', [ProductController::class, 'index'])
     ->name('admin.products.index');
 
 
@@ -25,4 +28,6 @@ Route::get('/admin/products/{product}/edit', [ProductController::class, 'edit'])
 
 Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])
     ->name('products.destroy');
+
+
 
