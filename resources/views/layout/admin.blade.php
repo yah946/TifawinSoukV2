@@ -12,7 +12,7 @@
 <body class="flex  font-sans bg-gray-100">
 
   <!-- SIDEBAR -->
-  <aside class="sticky top-0 h-screen w-[15%] border-r-2
+  <aside class="sticky top-0 h-screen w-[15%] 
                 bg-linear-to-t from-[#ffa929] to-[#ff9d26] flex flex-col">
 
     <!-- PLATFORM NAME -->
@@ -68,7 +68,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="sticky bottom-0 bg-gray-200 flex flex-col items-center py-3 w-full border-t">
+    <footer class=" bottom-0 bg-gray-200 flex flex-col items-center py-3 w-full border-t">
       <hr class="border-2 border-gray-400 w-1/2 mb-1">
       <p class="text-sm text-gray-700">© Copy Right</p>
     </footer>
