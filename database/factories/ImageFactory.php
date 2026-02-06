@@ -18,10 +18,11 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         $productIds = Product::pluck('id')->toArray();
+
         return [
             'product_id'=>fake()->randomElement($productIds),
-            'path'=>fake()->url(),
-            'size'=>fake()->randomFloat(2,0,2),
+            'path'=> sprintf('products/img%s.jpg', fake()->numberBetween(1, 20)),
+            'cover'=> fake()->boolean(),
         ];
     }
 }

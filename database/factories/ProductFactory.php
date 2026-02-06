@@ -18,7 +18,6 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        
         $categoryIds = Category::pluck('id')->toArray();
         $supplierIds = Supplier::pluck('id')->toArray();
         return [
