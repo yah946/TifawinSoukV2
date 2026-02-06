@@ -38,11 +38,11 @@
         <span class="font-medium">CATEGORIES</span>
       </a>
 
-      <a href="{{route('admin.products.index')}}" class="flex items-center gap-3 text-white hover:text-green-400">
+      <a href="{{route('admin.suppliers.index')}}" class="flex items-center gap-3 text-white hover:text-green-400">
         <i class="fa-solid fa-user-tie text-lg"></i>
         <span class="font-medium">SUPPLIERS</span>
       </a>
-       <a href="{{route('admin.products.index')}}" class="flex items-center gap-3 text-white hover:text-green-400">
+       <a href="{{route('admin.orders.index')}}" class="flex items-center gap-3 text-white hover:text-green-400">
       <i class="fa-solid fa-cart-arrow-down"></i>
         <span class="font-medium">COMMENDS</span>
       </a>

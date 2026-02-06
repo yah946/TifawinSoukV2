@@ -29,5 +29,5 @@ Route::get('/admin/products/{product}/edit', [ProductController::class, 'edit'])
 Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])
     ->name('products.destroy');
 
-
+require_once __DIR__ ."/admin.php";
 
