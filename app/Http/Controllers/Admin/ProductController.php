@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\DB;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Models\Supplier;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -63,7 +65,7 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')
                          ->with('success', 'Product created successfully.');
-    
+
     }
 
     /**
