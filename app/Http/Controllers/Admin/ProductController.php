@@ -28,6 +28,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $suppliers = Supplier::all();
 
+
         return view('admin.products.create', compact('categories', 'suppliers'));
     }
 
@@ -62,6 +63,7 @@ class ProductController extends Controller
         return redirect('/product/products')->with('success','Product Created');
     }
 
+
     /**
      * Display the specified resource.
      */
@@ -75,27 +77,36 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = Category::all() ;
-        return view('update',compact('categories','images','suppliers'));
+        $categories = Category::all();
+        $suppliers = Supplier::all();
+        $images     = $product->images;
+    return view('admin.products.edit', compact('categories', 'suppliers', 'images', 'product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
-    {
-        $validated = $request->validate([
-            'category_id' => 'required|integer',
-            'supplier_id' => 'required|integer',
-            'name' => 'required|string|max:50',
-            'description' => 'nullable|string',
-            'stock' => 'required|integer|min:0',
-            'price' => 'required|numeric|gt:0',
-        ]);
-        $validated['reference'] = str_replace(' ','_',$validated['name']).$validated['supplier_id'];
-        $product->update($validated);
-        return redirect('/product/products')->with('success','Product has been Updated');
-    }
+   public function update(Request $request, Product $product)
+{
+    $validated = $request->validate([
+        'category_id' => 'required|integer',
+        'supplier_id' => 'required|integer',
+        'name' => 'required|string|max:50',
+        'description' => 'nullable|string',
+        'stock' => 'required|integer|min:0',
+        'price' => 'required|numeric|min:0',
+    ]);
+
+    $validated['reference'] =
+        str_replace(' ', '_', $validated['name']) . $validated['supplier_id'];
+
+    $product->update($validated);
+
+    return redirect()
+        ->route('admin.products.index')
+        ->with('success', 'Product has been updated successfully');
+}
+
 
     /**
      * Remove the specified resource from storage.
@@ -103,16 +114,16 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return back()->with('success','product has been deleted');
+        return back()->with('success', 'product has been deleted');
     }
 
 
     public function dashboard()
-{
-    $productCount   = Product::count();
-    $categoryCount  = Category::count();
-    $supplierCount  = Supplier::count();
+    {
+        $productCount   = Product::count();
+        $categoryCount  = Category::count();
+        $supplierCount  = Supplier::count();
 
-    return view('admin.dashboard', compact('productCount', 'categoryCount', 'supplierCount'));
-}
+        return view('admin.dashboard', compact('productCount', 'categoryCount', 'supplierCount'));
+    }
 }
