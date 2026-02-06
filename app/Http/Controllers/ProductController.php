@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Supplier;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -15,7 +16,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view("products.index", compact("products"));
+        return view("admin.products.index", compact("products"));
     }
 
     /**
@@ -110,3 +111,13 @@ class ProductController extends Controller
         return back()->with('success','product has been deleted');
     }
 
+
+    public function dashboard()
+{
+    $productCount   = Product::count();
+    $categoryCount  = Category::count();
+    $supplierCount  = Supplier::count();
+
+    return view('admin.dashboard', compact('productCount', 'categoryCount', 'supplierCount'));
+}
+}

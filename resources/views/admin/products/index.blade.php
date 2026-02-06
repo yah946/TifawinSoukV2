@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <title>Products</title>
-</head>
-<body>
+@extends('layout.admin')
+
+@section('title', 'Tifawin')
+
+@section('content')
 
 <h1>List Of Products</h1>
 
@@ -50,5 +48,4 @@
     </tbody>
 </table>
 
-</body>
-</html>
+@endsection
