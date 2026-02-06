@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://kit.fontawesome.com/fd784d3edb.js" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <title>Dashboard</title>
 </head>
 
