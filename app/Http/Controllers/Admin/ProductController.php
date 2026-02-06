@@ -67,10 +67,12 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
-    {
-        //
-    }
+   public function show(Product $product)
+{
+    $product->load(['category', 'supplier']);
+    return view('admin.products.show', compact('product'));
+}
+
 
     /**
      * Show the form for editing the specified resource.
