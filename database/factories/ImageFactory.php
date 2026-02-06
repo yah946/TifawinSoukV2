@@ -21,7 +21,7 @@ class ImageFactory extends Factory
         return [
             'product_id'=>fake()->randomElement($productIds),
             'path'=>fake()->url(),
-            'size'=>fake()->randomFloat(2,0,2),
+            'cover'=>fake()->boolean(30),
         ];
     }
 }
