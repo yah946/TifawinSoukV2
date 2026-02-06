@@ -17,7 +17,7 @@
 
     <!-- PLATFORM NAME -->
     <div class="flex flex-col items-center py-4">
-      <p class="font-bold text-lg text-amber-50"> <i class="fa-solid fa-basket-shopping"></i>TIFAWIN SOUK</p>
+      <p class="font-bold text-lg text-amber-50"> TIFAWIN SOUK <i class="fa-solid fa-basket-shopping"></i></p>
       <hr class="border-4 w-3/4 mt-2">
     </div>
 
