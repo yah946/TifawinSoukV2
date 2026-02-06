@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Supplier;
+use App\Http\Controllers\Controller;
+use App\Models\Image;
 use Illuminate\Http\Request;
 
-class SupplierController extends Controller
+class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,13 +29,13 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Supplier $supplier)
+    public function show(Image $image)
     {
         //
     }
@@ -42,7 +43,7 @@ class SupplierController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Supplier $supplier)
+    public function edit(Image $image)
     {
         //
     }
@@ -50,7 +51,7 @@ class SupplierController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(Request $request, Image $image)
     {
         //
     }
@@ -58,7 +59,7 @@ class SupplierController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Supplier $supplier)
+    public function destroy(Image $image)
     {
         //
     }
