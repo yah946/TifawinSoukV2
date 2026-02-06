@@ -4,7 +4,8 @@
 <div class="container">
     <h1>Gestion des Catégories</h1>
     
-    <a href="{{ route('admin.categories.create') }}" class="btn-one mb-3">+ Nouvelle Catégorie</a>
+    <a href="" class="btn-one mb-3">+ Nouvelle Catégorie</a>
+    <!-- Add Router Cenvelable sh -->
 
     @if(session('success'))
     <div class="alert">
@@ -30,9 +31,11 @@
                 <td>{{ Str::limit($category->description, 50) }}</td>
                 <td>{{ $category->products->count() }}</td>
                 <td>
-                    <a href="{{ route('admin.categories.show', $category->id) }}" class="btn-sm btn-info">Voir</a>
-                    <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn-sm btn-one">Modifier</a>
-                    <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" style="display: inline;">
+                    <a href="" class="btn-sm btn-info">Voir</a>
+                    <a href="" class="btn-sm btn-one">Modifier</a>
+                    <form action="" method="POST" style="display: inline;">
+                            <!-- Add Router Cenvelable sh -->
+
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn-sm btn-danger" 
