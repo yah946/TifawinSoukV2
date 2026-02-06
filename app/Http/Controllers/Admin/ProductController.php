@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DB;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
-use App\Models\Supplier;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
