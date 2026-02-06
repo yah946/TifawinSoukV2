@@ -39,14 +39,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Order extends Model
 {
+    use HasFactory;
     public const STATUS_PENDING = 'pending';
     public const STATUS_SHIPPED = 'shipped';
     public const STATUS_DELIVERED = 'delivered';
     public const STATUS_CANCELED = 'canceled';
 
-    public const PAYMENT_METHOD_CASH_ON_DELIVERY = 'cash_on_delivery';
-    public const PAYMENT_METHOD_BANK_TRANSFER = 'bank_transfer';
-    public const PAYMENT_METHOD_CREDIT_CARD = 'credit_card';
+    public const PAYMENT_METHOD_CASH = 'cash';
     public const PAYMENT_METHOD_PAYPAL = 'paypal';
 
     protected $fillable = [

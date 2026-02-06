@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DB;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view("products.index", compact("products"));
+        return view("admin.products.index", compact("products"));
     }
 
     /**
@@ -28,7 +28,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $suppliers = Supplier::all();
 
-        return view('products.create', compact('categories', 'suppliers'));
+        return view('admin.products.create', compact('categories', 'suppliers'));
     }
 
     /**
@@ -63,7 +63,7 @@ class ProductController extends Controller
 
         Product::create($validated);
 
-        return redirect()->route('products.index')
+        return redirect()->route('admin.products.index')
                          ->with('success', 'Product created successfully.');
 
     }
@@ -111,4 +111,14 @@ class ProductController extends Controller
         $product->delete();
         return back()->with('success','product has been deleted');
     }
+
+
+    public function dashboard()
+{
+    $productCount   = Product::count();
+    $categoryCount  = Category::count();
+    $supplierCount  = Supplier::count();
+
+    return view('admin.dashboard', compact('productCount', 'categoryCount', 'supplierCount'));
+}
 }
