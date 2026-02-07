@@ -1,8 +1,8 @@
-@extends('layout.admin')
+{{-- @extends('layout.admin')
 
 @section('title', 'Tifawin')
 
-@section('content')
+@section('content') --}}
 
 <body>
 <div class="container mt-5 ">
@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <form action="{{ route('products.store') }}" method="POST">
+    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -69,10 +69,14 @@
             <label for="reference" >Reference</label>
             <input type="text" name="reference" id="reference" class="form-control">
         </div>
+        <div>
+            <label for="image">Upload Your Images</label>
+            <input id="image" type="file" accept="image/*" name="images[]" multiple hidden>
+        </div>
 
         <button type="submit" class="btn btn-primary">Create Product</button>
-        <a href="{{ route('admin.products.index') }}" >Cancel</a>
+        {{-- <a href="{{ route('admin.products.index') }}" >Cancel</a> --}}
     </form>
 </div>
 </body>
-@endsection
+{{-- @endsection --}}
