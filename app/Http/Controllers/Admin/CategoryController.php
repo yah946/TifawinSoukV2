@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('admin.category.create');
     }
 
     /**
@@ -43,8 +43,9 @@ class CategoryController extends Controller
             'description' => $request->description,
         ]);
 
-        // return redirect(route('categories.index'));
-    }
+return redirect()->route('admin.category.index') ;
+}
+
 
     /**
      * Display the specified resource.
