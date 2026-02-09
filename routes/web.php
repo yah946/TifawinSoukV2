@@ -40,8 +40,8 @@ Route::get('/admin/products/{product}', [ProductController::class, 'show'])
 Route::get('/admin/products/{product}/edit', [ProductController::class, 'edit'])
     ->name('products.edit');
 
-Route::put('/admin/products/{product}', [ProductController::class, 'update'])
-    ->name('products.update');
+        Route::get('/products/{product}', 'show')->name('show');
+    });
 
 
 Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])
