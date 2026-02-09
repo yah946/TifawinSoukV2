@@ -44,12 +44,19 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'stock' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
-            'reference' => 'nullable|string|max:100',
             'images.*' => 'image|mimes:jpg,png,jpeg|max:2048'
         ]);
         DB::transaction(function () use ($request, $validated): void {
             
-            $product = Product::create($validated);
+            $product = Product::create([
+                'category_id' =>$validated['category_id'],
+                'supplier_id' =>$validated['supplier_id'],
+                'name' =>$validated['name'],
+                'description' =>$validated['description'],
+                'stock' =>$validated['stock'],
+                'price' =>$validated['price'],
+                'reference' =>str_replace(' ','_',$validated['name']).random_int(1,1000),
+            ]);
             
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $index => $image) {
