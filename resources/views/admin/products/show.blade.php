@@ -1,4 +1,4 @@
-@extends('layout.admin')
+@extends('layouts.admin')
 
 @section('title', 'Détails du produit')
 
@@ -12,12 +12,12 @@
             </h2>
 
             <div class="flex gap-3">
-                <a href="{{ route('products.edit', $product->id) }}"
+                <a href="{{ route('admin.products.edit', $product->id) }}"
                    class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition">
                     Edit
                 </a>
 
-                <form action="{{ route('products.destroy', $product->id) }}" method="POST"
+                <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST"
                       onsubmit="return confirm('Are you sure?')">
                     @csrf
                     @method('DELETE')

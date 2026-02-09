@@ -43,7 +43,7 @@ class CategoryController extends Controller
             'description' => $request->description,
         ]);
 
-return redirect()->route('admin.category.index') ;
+return redirect()->route('admin.categories.index') ;
 }
 
 
@@ -52,7 +52,7 @@ return redirect()->route('admin.category.index') ;
      */
     public function show(Category $category)
     {
-        return view('categories.show', compact('category'));
+        return view('admin.category.show', compact('category'));
     }
 
     /**
@@ -60,7 +60,7 @@ return redirect()->route('admin.category.index') ;
      */
     public function edit(Category $category)
     {
-         return view('categories.edit', compact('category'));
+         return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -80,6 +80,8 @@ return redirect()->route('admin.category.index') ;
             'slug' => str_replace(' ','_',str_replace(' & ',' ',$validated['name'])).random_int(1,1000),
             'description' => $request->description,
         ]);
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -87,9 +89,7 @@ return redirect()->route('admin.category.index') ;
      */
     public function destroy(Category $category)
     {
-
         $category->delete();
-
-
+        return redirect()->route('admin.categories.index');
     }
 }

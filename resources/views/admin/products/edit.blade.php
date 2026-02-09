@@ -1,4 +1,4 @@
-@extends('layout.admin')
+@extends('layouts.admin')
 
 @section('title', 'Modifier le produit')
 
@@ -6,7 +6,7 @@
     <div class="bg-white rounded-lg shadow-md p-6">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Modifier le produit</h2>
 
-        <form action="{{ route('products.update', $product->id) }}" method="POST" class="space-y-6">
+        <form action="{{ route('admin.products.update', $product->id) }}" method="POST" class="space-y-6">
             @csrf
             @method('PUT')
 
@@ -74,7 +74,7 @@
                 <label for="stock" class="block text-sm font-medium text-gray-700 mb-2">
                     Stock *
                 </label>
-                <input type="number" name="stock" id="stock" value="{{ old('stock', $product->stock) }}" 
+                <input type="number" name="stock" id="stock" value="{{ old('stock', $product->stock) }}"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('stock') border-red-500 @enderror"
                        placeholder="Entrez le stock disponible">
                 @error('stock')
@@ -86,7 +86,7 @@
                 <label for="price" class="block text-sm font-medium text-gray-700 mb-2">
                     Prix *
                 </label>
-                <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}" 
+                <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('price') border-red-500 @enderror"
                        placeholder="Entrez le prix">
                 @error('price')
@@ -111,7 +111,8 @@
                    class="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition duration-200">
                     Annuler
                 </a>
-                <button type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-200">
+                <button type="submit"
+                        class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-200">
                     Enregistrer
                 </button>
             </div>

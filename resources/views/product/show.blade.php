@@ -1,4 +1,4 @@
-@extends('layout.user')
+@extends('layouts.user')
 
 @section('title', ucfirst($product->name))
 
@@ -22,7 +22,8 @@
             <div class="space-y-6">
                 <!-- Badge and Wishlist -->
                 <div class="flex items-start justify-between">
-                    <span class="inline-flex items-center rounded-md bg-teal-700 px-2 py-1 text-xs font-medium text-white inset-ring inset-ring-blue-400/30">{{ $product->category->name }}</span>
+                    <span
+                        class="inline-flex items-center rounded-md bg-teal-700 px-2 py-1 text-xs font-medium text-white inset-ring inset-ring-blue-400/30">{{ $product->category->name }}</span>
                 </div>
 
                 <!-- Title -->
@@ -106,7 +107,8 @@
                             />
                             <div class="p-4">
                                 <h3 class="text-sm font-semibold text-gray-900 truncate">{{ $relatedProduct->name }}</h3>
-                                <p class="text-lg font-bold text-gray-900 mt-2">{{ number_format($relatedProduct->price, 2, ',', ' ') }} Dh</p>
+                                <p class="text-lg font-bold text-gray-900 mt-2">{{ number_format($relatedProduct->price, 2, ',', ' ') }}
+                                    Dh</p>
                             </div>
                         </a>
                     </div>

@@ -1,4 +1,4 @@
-@extends('layout.admin')
+@extends('layouts.admin')
 
 @section('title', 'La liste des fournisseurs archivées')
 
@@ -21,10 +21,19 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Archivé le</th>
-                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Archivé
+                        le
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions
+                    </th>
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -41,7 +50,8 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="flex justify-end space-x-2">
-                                <form action="{{ route('admin.suppliers.restore', $supplier) }}" method="POST" class="inline">
+                                <form action="{{ route('admin.suppliers.restore', $supplier) }}" method="POST"
+                                      class="inline">
                                     @csrf
                                     @method('PUT')
                                     <button type="submit"
@@ -50,7 +60,8 @@
                                         Restaurer
                                     </button>
                                 </form>
-                                <form action="{{ route('admin.suppliers.force-destroy', $supplier) }}" method="POST" class="inline">
+                                <form action="{{ route('admin.suppliers.force-destroy', $supplier) }}" method="POST"
+                                      class="inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"

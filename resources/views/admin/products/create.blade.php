@@ -1,4 +1,4 @@
- @extends('layout.admin')
+@extends('layouts.admin')
 
 @section('title', 'Ajouter un produit')
 
@@ -6,7 +6,7 @@
     <div class="bg-white rounded-lg shadow-md p-6">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Ajouter un nouveau produit</h2>
 
-        <form action="{{ route('products.store') }}" method="POST" class="space-y-6">
+        <form action="{{ route('admin.products.store') }}" method="POST" class="space-y-6">
             @csrf
 
             <div>
@@ -34,8 +34,13 @@
             </div>
 
             <div>
-                <label class="px-6 py-2 bg-orange-400 hover:bg-orange-500 cursor-pointer text-white font-medium rounded-lg transition duration-200" for="image">Ajouter les photos du produit</label>
+                <label class="px-6 py-2 bg-orange-400 hover:bg-orange-500 cursor-pointer text-white font-medium rounded-lg transition duration-200"
+                       for="image">Ajouter les photos du produit</label>
                 <input id="image" type="file" accept="image/*" name="images[]" multiple hidden>
+
+                @error('images')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
             </div>
 
             <div>
@@ -115,7 +120,8 @@
                    class="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition duration-200">
                     Annuler
                 </a>
-                <button type="submit" class="px-6 py-2 bg-orange-400 hover:bg-orange-500 cursor-pointer text-white font-medium rounded-lg transition duration-200">
+                <button type="submit"
+                        class="px-6 py-2 bg-orange-400 hover:bg-orange-500 cursor-pointer text-white font-medium rounded-lg transition duration-200">
                     Enregistrer
                 </button>
             </div>

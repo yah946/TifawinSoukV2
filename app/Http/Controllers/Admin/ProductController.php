@@ -47,7 +47,7 @@ class ProductController extends Controller
             'images.*' => 'image|mimes:jpg,png,jpeg|max:2048'
         ]);
         DB::transaction(function () use ($request, $validated): void {
-            
+
             $product = Product::create([
                 'category_id' =>$validated['category_id'],
                 'supplier_id' =>$validated['supplier_id'],
@@ -57,7 +57,7 @@ class ProductController extends Controller
                 'price' =>$validated['price'],
                 'reference' =>str_replace(' ','_',$validated['name']).random_int(1,1000),
             ]);
-            
+
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $index => $image) {
                     $product->images()->create([
@@ -67,7 +67,7 @@ class ProductController extends Controller
                 }
             }
         });
-        return redirect('/product/products')->with('success','Product Created');
+        return redirect()->route('admin.products.index')->with('success','Product Created');
     }
 
 
@@ -123,16 +123,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return back()->with('success', 'product has been deleted');
-    }
-
-
-    public function dashboard()
-    {
-        $productCount   = Product::count();
-        $categoryCount  = Category::count();
-        $supplierCount  = Supplier::count();
-
-        return view('admin.dashboard', compact('productCount', 'categoryCount', 'supplierCount'));
+        return redirect()->route('admin.products.index');
     }
 }
