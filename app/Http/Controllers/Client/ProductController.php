@@ -15,4 +15,11 @@ class ProductController extends Controller
             'categories' => Category::all()
         ]);
     }
+
+    public function show(Product $product)
+    {
+        $product->load('images');
+        $relatedProducts = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->limit(6)->get();
+        return view('product.show', compact('product', 'relatedProducts'));
+    }
 }

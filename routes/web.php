@@ -1,10 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Client\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [ProductController::class, 'index']);
+Route::controller(ProductController::class)
+    ->name('products.')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
 
-Route::resource('products', ProductController::class);
+        Route::get('/products/{product}', 'show')->name('show');
+    });
 
 require_once __DIR__ . '/admin.php';
