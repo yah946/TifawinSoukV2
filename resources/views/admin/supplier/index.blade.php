@@ -63,7 +63,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                            class="text-red-600 hover:text-red-900 transition-colors duration-150"
+                                            class="cursor-pointer text-red-600 hover:text-red-900 transition-colors duration-150"
                                             onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce fournisseur ?')">
                                         Supprimer
                                     </button>
