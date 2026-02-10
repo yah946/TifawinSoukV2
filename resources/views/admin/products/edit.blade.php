@@ -6,49 +6,13 @@
     <div class="bg-white rounded-lg shadow-md p-6">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Modifier le produit</h2>
 
-        <form action="{{ route('admin.products.update', $product->id) }}" method="POST" class="space-y-6">
+        <form action="{{ route('admin.products.update', $product->id) }}" method="POST" class="space-y-6" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
             <div>
-                <label for="category_id" class="block text-sm font-medium text-gray-700 mb-2">
-                    Catégorie *
-                </label>
-                <select name="category_id" id="category_id" required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('category_id') border-red-500 @enderror">
-                    <option value="">Sélectionner une catégorie</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
-                            {{ $category->name }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('category_id')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div>
-                <label for="supplier_id" class="block text-sm font-medium text-gray-700 mb-2">
-                    Fournisseur *
-                </label>
-                <select name="supplier_id" id="supplier_id" required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('supplier_id') border-red-500 @enderror">
-                    <option value="">Sélectionner un fournisseur</option>
-                    @foreach ($suppliers as $supplier)
-                        <option value="{{ $supplier->id }}" {{ old('supplier_id', $product->supplier_id) == $supplier->id ? 'selected' : '' }}>
-                            {{ $supplier->name }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('supplier_id')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div>
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                    Nom du produit *
+                    Nom du produit <span class="text-red-500">*</span>
                 </label>
                 <input type="text" name="name" id="name" value="{{ old('name', $product->name) }}" required
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('name') border-red-500 @enderror"
@@ -70,9 +34,63 @@
                 @enderror
             </div>
 
+            @if ($product->images->count())
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Les Photos Déjà Ajouter
+                </label>
+
+                <div class="grid grid-cols-4 gap-4">
+                    @foreach ($product->images as $image)
+                        <div class="relative border rounded-lg p-2">
+                            <img src="{{ asset('storage/' . $image->path) }}"
+                                class="w-full h-32 object-cover rounded">
+
+                            <label class="flex items-center mt-2 text-sm text-red-600">
+                                <input type="checkbox"
+                                    name="deleted_images[]"
+                                    value="{{ $image->id }}"
+                                    class="mr-2">
+                                Supprimer
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+
+            <div>
+                <label class="px-6 py-2 bg-orange-400 hover:bg-orange-500 cursor-pointer text-white font-medium rounded-lg transition duration-200"
+                       for="image">Ajouter Nouveau photos</label>
+                <input id="image" type="file" accept="image/*" name="images[]" multiple hidden>
+
+                @error('images')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="category_id" class="block text-sm font-medium text-gray-700 mb-2">
+                    Catégorie <span class="text-red-500">*</span>
+                </label>
+                <select name="category_id" id="category_id" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('category_id') border-red-500 @enderror">
+                    <option value="">Sélectionner une catégorie</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('category_id')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
             <div>
                 <label for="stock" class="block text-sm font-medium text-gray-700 mb-2">
-                    Stock *
+                    Stock <span class="text-red-500">*</span>
                 </label>
                 <input type="number" name="stock" id="stock" value="{{ old('stock', $product->stock) }}"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('stock') border-red-500 @enderror"
@@ -84,7 +102,7 @@
 
             <div>
                 <label for="price" class="block text-sm font-medium text-gray-700 mb-2">
-                    Prix *
+                    Prix <span class="text-red-500">*</span>
                 </label>
                 <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('price') border-red-500 @enderror"
@@ -102,6 +120,24 @@
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('reference') border-red-500 @enderror"
                        placeholder="Entrez la référence">
                 @error('reference')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="supplier_id" class="block text-sm font-medium text-gray-700 mb-2">
+                    Fournisseur <span class="text-red-500">*</span>
+                </label>
+                <select name="supplier_id" id="supplier_id" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('supplier_id') border-red-500 @enderror">
+                    <option value="">Sélectionner un fournisseur</option>
+                    @foreach ($suppliers as $supplier)
+                        <option value="{{ $supplier->id }}" {{ old('supplier_id', $product->supplier_id) == $supplier->id ? 'selected' : '' }}>
+                            {{ $supplier->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('supplier_id')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
