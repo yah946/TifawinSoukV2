@@ -64,10 +64,10 @@
             </div>
         </div>
         <div>
-            <div class="flex gap-6">
+            <div class="flex gap-12">
                 <div>
                     <span class="font-bold text-sm text-white pl-2 pr-2 pb-4 block">RETROUVEZ-NOUS SUR</span>
-                    <div class="flex">
+                    <div class="flex gap-6">
                         <a href="#">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white hover:text-orange-500" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
@@ -119,7 +119,7 @@
                 </div>
                 <div>
                     <span class="font-bold text-sm text-white pl-2 pr-2 pb-4 block">MODES DE PAIEMENT ET LIVRAISON</span>
-                    <div class="flex">
+                    <div class="flex gap-6">
                         <a class="" href="#">
                             <svg class="w-6 h-6 text-white hover:text-orange-500" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 48 48" fill="currentColor" aria-hidden="true">
