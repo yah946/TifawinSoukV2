@@ -51,7 +51,7 @@
                 <div>
                     <p class="text-sm font-semibold text-gray-700 mb-3">VOIR D'AUTRES IMAGES:</p>
                     <div class="swiper">
-                        <div class="swiper-wrapper mb-8">
+                        <div class="swiper-wrapper grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 mb-8">
                             @foreach($product->images as $image)
                                 <div class="swiper-slide">
                                     <button
@@ -71,7 +71,7 @@
                 </div>
 
                 <!-- Quantity & Add to Cart -->
-                <form method="POST" action="" class="flex items-center gap-4 flex-wrap">
+                <form method="POST" action="{{ route('cart.add-product', $product) }}" class="flex items-center gap-4 flex-wrap">
                     @csrf
                     <div class="flex items-center border-2 border-gray-200 rounded overflow-hidden">
                         <button onclick="decreaseQuantity()"
