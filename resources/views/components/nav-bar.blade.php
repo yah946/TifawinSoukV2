@@ -10,6 +10,6 @@
         </form>
         <div class="flex gap-4">
             <a class="hover:text-[#f5891d]" href="">Se Connecter</a>
-            <a class="hover:text-[#f5891d]" href="">Panier</a>
+            <a class="hover:text-[#f5891d]" href="{{ route('cart.index') }}">Panier</a>
         </div>
 </nav>

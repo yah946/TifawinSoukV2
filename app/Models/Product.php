@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -73,9 +74,13 @@ class Product extends Model
         return $this->belongsTo(Supplier::class);
     }
 
-    public function orderItems(): HasMany
+    public function orders(): BelongsToMany
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->belongsToMany(Order::class, 'order_items', 'product_id', 'order_id')
+            ->using(OrderItem::class)
+            ->withPivot('quantity', 'unit_price')
+            ->withTimestamps()
+            ;
     }
 
     public function images(): HasMany

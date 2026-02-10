@@ -22,3 +22,4 @@ Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.
 
 require_once __DIR__ ."/admin.php";
 require_once __DIR__.'/auth.php';
+require_once __DIR__.'/client.php';

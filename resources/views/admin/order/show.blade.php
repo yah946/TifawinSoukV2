@@ -139,14 +139,14 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-500">Nombre d'articles</label>
-                            <p class="mt-1 text-sm text-gray-900">{{ $order->orderItems->count() }} article(s)</p>
+                            <p class="mt-1 text-sm text-gray-900">{{ $order->products->count() }} article(s)</p>
                         </div>
                     </div>
 
                     <div class="mt-6 pt-4 border-t border-gray-200">
                         <div class="flex justify-between">
                             <span class="text-lg font-medium text-gray-900">Total de la commande</span>
-                            <span class="text-2xl font-bold text-indigo-600">{{ number_format($order->total, 2) }} MAD</span>
+                            <span class="text-2xl font-bold text-indigo-600">{{ number_format($order->total, 2, ',', ' ') }} DH</span>
                         </div>
                     </div>
                 </div>
@@ -156,21 +156,21 @@
             <div class="bg-white shadow rounded-lg">
                 <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Articles de la Commande</h3>
-                    <p class="mt-1 text-sm text-gray-500">{{ $order->orderItems->count() }} article(s) dans cette
+                    <p class="mt-1 text-sm text-gray-500">{{ $order->products->count() }} article(s) dans cette
                         commande</p>
                 </div>
 
-                @if($order->orderItems->count() > 0)
+                @if($order->products()->count() > 0)
                     <div class="overflow-hidden">
                         <ul class="divide-y divide-gray-200">
-                            @foreach($order->orderItems as $item)
+                            @foreach($order->products as $product)
                                 <li class="px-4 py-4 sm:px-6">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center min-w-0">
-                                            @if($item->product && $item->product->cover)
+                                            @if($product && $product->cover)
                                                 <img class="h-16 w-16 rounded-lg object-cover"
-                                                     src="{{ asset('storage/' . $item->product->cover->path) }}"
-                                                     alt="{{ $item->product->name }}">
+                                                     src="{{ asset('storage/' . $product->cover->path) }}"
+                                                     alt="{{ $product->name }}">
                                             @else
                                                 <div class="h-16 w-16 rounded-lg bg-gray-200 flex items-center justify-center">
                                                     <svg class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24"
@@ -183,24 +183,22 @@
                                             @endif
                                             <div class="ml-4 min-w-0 flex-1">
                                                 <p class="text-sm font-medium text-gray-900 truncate">
-                                                    {{ $item->product->name ?? 'Produit supprimé' }}
+                                                    {{ $product->name ?? 'Produit supprimé' }}
                                                 </p>
                                                 <p class="text-sm text-gray-500 truncate">
-                                                    Référence: {{ $item->product->reference ?? 'N/A' }}
+                                                    Référence: {{ $product->reference ?? 'N/A' }}
                                                 </p>
-                                                @if($item->product && $item->product->category)
-                                                    <p class="text-xs text-gray-400">
-                                                        {{ $item->product->category->name }}
-                                                    </p>
-                                                @endif
+                                                <p class="text-xs text-gray-400">
+                                                    {{ $product->category->name }}
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="ml-4 flex-shrink-0 text-right">
                                             <p class="text-sm text-gray-900">
-                                                {{ $item->quantity }} × {{ number_format($item->unit_price, 2) }} MAD
+                                                {{ $product->pivot->quantity }} × {{ number_format($product->pivot->unit_price, 2, ',', ' ') }} DH
                                             </p>
                                             <p class="text-lg font-semibold text-indigo-600 mt-1">
-                                                {{ number_format($item->quantity * $item->unit_price, 2) }} MAD
+                                                {{ number_format($product->pivot->quantity * $product->pivot->unit_price, 2, ',', ' ') }} DH
                                             </p>
                                         </div>
                                     </div>
