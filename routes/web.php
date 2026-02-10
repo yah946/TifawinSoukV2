@@ -15,7 +15,7 @@ Route::controller(ProductController::class)
             ->name('filter')
         ;
     });
-Route::post('/paypal/create', [PaypalController::class, 'create'])->name('paypal.create');
+Route::get('/paypal/create/{order}', [PaypalController::class, 'create'])->name('paypal.create');
 Route::get('/paypal/success', [PaypalController::class, 'success'])->name('paypal.success');
 Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.cancel');
 
