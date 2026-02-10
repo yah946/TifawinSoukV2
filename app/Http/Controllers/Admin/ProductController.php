@@ -8,7 +8,7 @@ use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Http\RedirectResponse;
 class ProductController extends Controller
 {
     /**
@@ -124,5 +124,25 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('admin.products.index');
+    }
+
+ public function restore(Product $product): RedirectResponse
+    {
+        $product->restore();
+        return redirect()->route('admin.products.trashed')->with('success', 'Product restored successfully');
+    }
+
+
+
+    public function trashed()
+{
+    $products = Product::onlyTrashed()->paginate(10);
+    return view('admin.products.trashed', compact('products'));
+}
+
+  public function forceDestroy(Product $product)
+    {
+        $product->forceDelete();
+        return redirect()->route('admin.products.trashed')->with('success', 'Products permanently deleted successfully');
     }
 }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+
+
 
 class CategoryController extends Controller
 {
@@ -92,4 +95,31 @@ return redirect()->route('admin.categories.index') ;
         $category->delete();
         return redirect()->route('admin.categories.index');
     }
+
+     public function restore(Category $category): RedirectResponse
+    {
+        $category->restore();
+        return redirect()->route('admin.categories.trashed')->with('success', 'Product restored successfully');
+    }
+
+
+
+
+
+public function trashed()
+{
+    $categories = Category::onlyTrashed()->paginate(10);
+    return view('admin.category.trashed', compact('categories'));
 }
+
+
+ public function forceDestroy(Category $category)
+{
+    $category->forceDelete();
+
+    return redirect()
+        ->route('admin.categories.trashed')
+        ->with('success', 'Category permanently deleted successfully');
+}
+}
+

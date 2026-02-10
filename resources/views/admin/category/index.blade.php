@@ -4,11 +4,19 @@
 <div class="container mx-auto px-4 py-8">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-800"> Gestion des Catégories</h1>
-        <a href="{{ route('admin.categories.create') }}"
-           class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            + Nouvelle Catégorie
-        </a>
     </div>
+        <div class="w-full flex justify-end gap-4">
+
+     <a href="{{ route('admin.categories.trashed') }}"
+       class="inline-block mb-4 px-4 py-2  text-white rounded-lg bg-gray-600 hover:bg-gray-700 transition">
+       <i class="fa-regular fa-folder-open"></i>  Accéder aux Archives    
+    </a>
+    <a href="{{ route('admin.categories.create') }}"
+       class="inline-block mb-4 px-4 py-2  text-white rounded-lg bg-blue-600 hover:bg-blue-700 transition">
+        + Nouvelle Catégorie
+    </a>
+</div>
+    
 
     @if(session('success'))
     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
