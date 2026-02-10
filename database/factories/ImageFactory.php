@@ -21,7 +21,7 @@ class ImageFactory extends Factory
 
         return [
             'product_id'=>fake()->randomElement($productIds),
-            'path'=> sprintf('products/img%s.jpg', fake()->numberBetween(1, 20)),
+            'path'=> sprintf('products/img_%s.jpg', fake()->numberBetween(1, 20)),
             'cover'=> fake()->boolean(),
         ];
     }

@@ -1,3 +1,121 @@
-<div>
-    <!-- Happiness is not something readymade. It comes from your own actions. - Dalai Lama -->
-</div>
+@extends('layouts.admin')
+
+@section('title', 'Modifier le produit')
+
+@section('content')
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Modifier le produit</h2>
+
+        <form action="{{ route('admin.products.update', $product->id) }}" method="POST" class="space-y-6">
+            @csrf
+            @method('PUT')
+
+            <div>
+                <label for="category_id" class="block text-sm font-medium text-gray-700 mb-2">
+                    Catégorie *
+                </label>
+                <select name="category_id" id="category_id" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('category_id') border-red-500 @enderror">
+                    <option value="">Sélectionner une catégorie</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('category_id')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="supplier_id" class="block text-sm font-medium text-gray-700 mb-2">
+                    Fournisseur *
+                </label>
+                <select name="supplier_id" id="supplier_id" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('supplier_id') border-red-500 @enderror">
+                    <option value="">Sélectionner un fournisseur</option>
+                    @foreach ($suppliers as $supplier)
+                        <option value="{{ $supplier->id }}" {{ old('supplier_id', $product->supplier_id) == $supplier->id ? 'selected' : '' }}>
+                            {{ $supplier->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('supplier_id')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                    Nom du produit *
+                </label>
+                <input type="text" name="name" id="name" value="{{ old('name', $product->name) }}" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('name') border-red-500 @enderror"
+                       placeholder="Entrez le nom du produit">
+                @error('name')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
+                    Description
+                </label>
+                <textarea name="description" id="description"
+                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('description') border-red-500 @enderror"
+                          placeholder="Entrez la description">{{ old('description', $product->description) }}</textarea>
+                @error('description')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="stock" class="block text-sm font-medium text-gray-700 mb-2">
+                    Stock *
+                </label>
+                <input type="number" name="stock" id="stock" value="{{ old('stock', $product->stock) }}"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('stock') border-red-500 @enderror"
+                       placeholder="Entrez le stock disponible">
+                @error('stock')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="price" class="block text-sm font-medium text-gray-700 mb-2">
+                    Prix *
+                </label>
+                <input type="number" name="price" id="price" value="{{ old('price', $product->price) }}"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('price') border-red-500 @enderror"
+                       placeholder="Entrez le prix">
+                @error('price')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="reference" class="block text-sm font-medium text-gray-700 mb-2">
+                    Référence
+                </label>
+                <input type="text" name="reference" id="reference" value="{{ old('reference', $product->reference) }}"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 @error('reference') border-red-500 @enderror"
+                       placeholder="Entrez la référence">
+                @error('reference')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200">
+                <a href="{{ route('admin.products.index') }}"
+                   class="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition duration-200">
+                    Annuler
+                </a>
+                <button type="submit"
+                        class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-200">
+                    Enregistrer
+                </button>
+            </div>
+        </form>
+    </div>
+@endsection

@@ -53,16 +53,6 @@ class Product extends Model
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory, SoftDeletes;
 
-    public function images(): HasMany
-    {
-        return $this->hasMany(Image::class);
-    }
-
-    public function cover(): HasOne
-    {
-        return $this->hasOne(Image::class)->where('cover', true);
-    }
-
     protected $fillable = [
         'category_id',
         'supplier_id',
@@ -87,9 +77,14 @@ class Product extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
-    
-      use HasFactory, SoftDeletes;
 
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
+    }
 
-  
+    public function cover(): HasOne
+    {
+        return $this->hasOne(Image::class)->where('cover', true);
+    }
 }

@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('categories.index', compact('categories'));
+        return view('Admin.Category.index', compact('categories'));
     }
 
     /**
@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('admin.category.create');
     }
 
     /**
@@ -43,15 +43,16 @@ class CategoryController extends Controller
             'description' => $request->description,
         ]);
 
-        // return redirect(route('categories.index'));
-    }
+return redirect()->route('admin.categories.index') ;
+}
+
 
     /**
      * Display the specified resource.
      */
     public function show(Category $category)
     {
-        return view('categories.show', compact('category'));
+        return view('admin.category.show', compact('category'));
     }
 
     /**
@@ -59,7 +60,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-         return view('categories.edit', compact('category'));
+         return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -79,6 +80,8 @@ class CategoryController extends Controller
             'slug' => str_replace(' ','_',str_replace(' & ',' ',$validated['name'])).random_int(1,1000),
             'description' => $request->description,
         ]);
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -86,9 +89,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-
         $category->delete();
-
-
+        return redirect()->route('admin.categories.index');
     }
 }

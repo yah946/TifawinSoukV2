@@ -1,51 +1,63 @@
-@extends('layout.admin')
+@extends('layouts.admin')
 
 @section('title', 'Tifawin')
 
 @section('content')
 
-<h1>List Of Products</h1>
+    <h1 class="text-2xl font-bold mb-6">List of Products</h1>
 
-<a href="{{ route('products.create') }}">create Product</a>
+    <a href="{{ route('admin.products.create') }}"
+       class="inline-block mb-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+        Create Product
+    </a>
 
-<table border="1" cellpadding="5" cellspacing="0">
-    <thead>
-        <tr>
-            <th>name</th>
-            <th>description</th>
-            <th>price</th>
-            <th>stock</th>
-            <th>reference</th>
-            <th>category</th>
-            <th>supplier</th>
-            <th>created at</th>
-            <th>options</th>
-        </tr>
-    </thead>
-    <tbody>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @foreach ($products as $product)
-            <tr>
-                <td>{{ $product->name }}</td>
-                <td>{{ $product->description }}</td>
-                <td>{{ $product->price }}</td>
-                <td>{{ $product->stock }}</td>
-                <td>{{ $product->reference }}</td>
-                <td>{{ $product->category->name }}</td>
-                <td>{{ $product->supplier->name }}</td>
-                <td>{{ $product->created_at }}</td>
-               <td>
-                    <a href="{{ route('products.show', $product->id) }}">view</a> |
-                    <a href="{{ route('products.edit', $product->id) }}">edit</a> |
-                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('Are you sure?')">delete</button>
-                    </form>
-                </td>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
 
-            </tr>
+                @if($product->cover)
+                    <img src="{{ asset('storage/'.$product->cover->path) }}" alt="{{ $product->name }}"
+                         class="w-full h-48 object-cover">
+                @else
+                    <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
+                        No Image
+                    </div>
+                @endif
+
+                <div class="p-4">
+                    <a href="{{ route('admin.products.show', $product->id) }}"
+                       class="block text-lg font-semibold text-blue-600 hover:underline mb-2">
+                        {{ $product->name }}
+                    </a>
+
+                    <p class="text-gray-700 text-sm mb-4">
+                        {{ Str::limit($product->description, 60) }}
+                    </p>
+
+                    <div class="flex justify-between items-center">
+                        <a href="{{ route('admin.products.edit', $product->id) }}"
+                           class="px-3 py-1 bg-yellow-400 text-white rounded hover:bg-yellow-500 transition text-sm">
+                            Edit
+                        </a>
+
+                        <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST"
+                              onsubmit="return confirm('Are you sure?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                    class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition text-sm">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="mt-3 text-gray-600 text-sm">
+                        <p>Price: ${{ $product->price }}</p>
+                        <p>Stock: {{ $product->stock }}</p>
+                    </div>
+                </div>
+            </div>
         @endforeach
-    </tbody>
-</table>
+    </div>
 
 @endsection
