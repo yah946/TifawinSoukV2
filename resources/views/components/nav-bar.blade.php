@@ -1,6 +1,6 @@
 <nav class="h-20 bg-white flex items-center justify-around">
         <h1 class="text-2xl font-thin">Tifawin Souk</h1>
-        <form action="{{route('index.filter')}}" method="get">
+        <form action="{{route('products.filter')}}" method="get">
             <input
                 name="search"
                 class="border border-gray-200 bg-white py-1.5 w-192 pl-4 rounded shadow-sm hover:shadow-md transition-shadow"

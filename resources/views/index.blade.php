@@ -4,7 +4,7 @@
         <div class="flex flex-col bg-white max-w-fit mx-auto rounded border border-gray-200 shadow-sm py-2 px-4">
             @foreach ($categories as $category)
                 <div class="pb-2">
-                    <a class="hover:text-orange-500 text-sm" href="{{route('index.filter',['c'=>$category->id])}}">{{$category->name}}</a>
+                    <a class="hover:text-orange-500 text-sm" href="{{route('products.filter',['c'=>$category->id])}}">{{$category->name}}</a>
                 </div>
                 @endforeach
             </div>
@@ -34,7 +34,7 @@
             <div class="bg-[#7b1fa2] w-full text-white text-2xl py-2 px-4 shadow-sm">Profitez des meilleurs deals</div>
             <div class="flex justify-between bg-white w-full py-2 px-4 shadow-sm">
                 <p>Filtrer Par Prix En Dhs</p>
-                <form id="formPrice" action="{{route('index.filter')}}" method="get">
+                <form id="formPrice" action="{{route('products.filter')}}" method="get">
                     <input id="min" class="border pl-4 w-24 border-[#7b1fa2] text-[#7b1fa2]" placeholder="min" type="number" name="min_price">
                     <input id="max" class="border pl-4 w-24 border-[#7b1fa2] text-[#7b1fa2]" placeholder="max" type="number" name="max_price">
                 </form>

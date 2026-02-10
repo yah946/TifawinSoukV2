@@ -10,6 +10,9 @@ Route::controller(ProductController::class)
         Route::get('/show/{product}', 'show')
             ->name('show')
         ;
+        Route::get('filter', 'filter')
+            ->name('filter')
+        ;
     });
 
 require_once __DIR__ ."/admin.php";
