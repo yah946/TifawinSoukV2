@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Client\ProductController;
-use App\Http\Controllers\Client\PaypalController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(ProductController::class)
@@ -15,10 +14,6 @@ Route::controller(ProductController::class)
             ->name('filter')
         ;
     });
-Route::get('/paypal/create/{order}', [PaypalController::class, 'create'])->name('paypal.create');
-Route::get('/paypal/success', [PaypalController::class, 'success'])->name('paypal.success');
-Route::get('/paypal/cancel', [PaypalController::class, 'cancel'])->name('paypal.cancel');
-
 
 require_once __DIR__ ."/admin.php";
 require_once __DIR__.'/auth.php';
