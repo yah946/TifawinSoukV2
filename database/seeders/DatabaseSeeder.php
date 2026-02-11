@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
+            'role' => 'admin'
         ]);
         User::factory()->create([
             'name' => 'User',
@@ -32,7 +33,6 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             ImageSeeder::class,
             OrderSeeder::class,
-            OrderItemSeeder::class
         ]);
     }
 }
