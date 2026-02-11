@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')
     ->prefix('admin')
+    ->middleware(['auth','admin'])
     ->group(function () {
         // resource of admin
         Route::get('', [HomeController::class, 'dashboard'])

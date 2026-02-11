@@ -40,11 +40,12 @@ class ProductController extends Controller
         $validated = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'supplier_id' => 'required|exists:suppliers,id',
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:70',
             'description' => 'nullable|string',
             'stock' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
-            'images.*' => 'image|mimes:jpg,png,jpeg|max:2048'
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
         ]);
         DB::transaction(function () use ($request, $validated): void {
 
@@ -55,7 +56,7 @@ class ProductController extends Controller
                 'description' =>$validated['description'],
                 'stock' =>$validated['stock'],
                 'price' =>$validated['price'],
-                'reference' =>str_replace(' ','_',$validated['name']).random_int(1,1000),
+                'reference' =>str_replace(' ','_',strtolower($validated['name'])).random_int(1,1000),
             ]);
 
             if ($request->hasFile('images')) {
@@ -95,21 +96,61 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-   public function update(Request $request, Product $product)
-{
+   public function update(Request $request, Product $product){
     $validated = $request->validate([
-        'category_id' => 'required|integer',
-        'supplier_id' => 'required|integer',
-        'name' => 'required|string|max:50',
+        'category_id' => 'required|exists:categories,id',
+        'supplier_id' => 'required|exists:suppliers,id',
+        'name' => 'required|string|max:70',
         'description' => 'nullable|string',
         'stock' => 'required|integer|min:0',
         'price' => 'required|numeric|min:0',
+        'images' => 'nullable|array',
+        'images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+        'deleted_images' => 'nullable|array',
+        'deleted_images.*' => 'exists:images,id',
     ]);
+    DB::transaction(function () use ($request, $validated, $product) {
+        $product->update([
+            'category_id' => $validated['category_id'],
+            'supplier_id' => $validated['supplier_id'],
+            'name' => $validated['name'],
+            'description' => $validated['description'] ?? null,
+            'reference' =>str_replace(' ','_',strtolower($validated['name'])).random_int(1,1000),
+            'stock' => $validated['stock'],
+            'price' => $validated['price'],
+        ]);
+    if (!empty($validated['deleted_images'])) {
+            $coverDeleted = $product->images()
+                ->where('cover', true)
+                ->whereIn('id', $validated['deleted_images'])
+                ->exists();
 
-    $validated['reference'] =
-        str_replace(' ', '_', $validated['name']) . $validated['supplier_id'];
+            $imagesToDelete = $product->images()
+                ->whereIn('id', $validated['deleted_images'])
+                ->get();
 
-    $product->update($validated);
+            foreach ($imagesToDelete as $image) {
+                Storage::disk('public')->delete($image->path);
+                $image->delete();
+            }
+            if ($coverDeleted) {
+                $product->images()
+                    ->orderBy('id')
+                    ->first()
+                    ?->update(['cover' => true]);
+            }
+        }
+        if ($request->hasFile('images')) {
+            $hasCover = $product->images()->where('cover', true)->exists();
+            foreach ($request->file('images') as $index => $image) {
+                $product->images()->create([
+                    'path' => $image->store('products', 'public'),
+                    'cover' => !$hasCover && $index === 0,
+                ]);
+            }
+        }
+    });
+
 
     return redirect()
         ->route('admin.products.index')

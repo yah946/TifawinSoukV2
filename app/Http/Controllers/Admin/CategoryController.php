@@ -42,7 +42,7 @@ class CategoryController extends Controller
         Category::create([
             'name' => $request->name,
             'emoji' => $request->emoji,
-            'slug' => str_replace(' ','_',str_replace(' & ',' ',$validated['name'])).random_int(1,1000),
+            'slug' => str_replace(' ','_',str_replace(' & ',' ',strtolower($validated['name']))).random_int(1,1000),
             'description' => $request->description,
         ]);
 
@@ -80,7 +80,7 @@ return redirect()->route('admin.categories.index') ;
         $category->update([
             'name' => $request->name,
             'emoji' => $request->emoji,
-            'slug' => str_replace(' ','_',str_replace(' & ',' ',$validated['name'])).random_int(1,1000),
+            'slug' => str_replace(' ','_',str_replace(' & ',' ',strtolower($validated['name']))).random_int(1,1000),
             'description' => $request->description,
         ]);
 
