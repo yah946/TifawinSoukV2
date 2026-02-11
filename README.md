@@ -1,59 +1,152 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🛒 TifawinSouk – Plateforme de Gestion Commerciale
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📌 Présentation du Projet
 
-## About Laravel
+**TifawinSouk** est une PME marocaine spécialisée dans le commerce local.  
+Dans le cadre de sa transformation digitale, l’entreprise souhaite développer une application web permettant de :
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Gérer son catalogue de produits
+- Administrer les fournisseurs
+- Suivre les commandes clients
+- Offrir une vitrine publique pour les clients
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Ce projet est réalisé avec **Laravel (dernière version stable)** et respecte les bonnes pratiques de développement (architecture MVC, Eloquent ORM, validation, sécurité, transactions SQL).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+# 🎯 Objectifs du Projet
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+L’application comporte **deux espaces principaux** :
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🔐 Back-Office (Admin)
+- Gestion centralisée du stock
+- Gestion des catégories et fournisseurs
+- Suivi des commandes
+- Tableau de bord (stock critique)
 
-## Laravel Sponsors
+## 🌍 Front-Office (Client)
+- Consultation du catalogue
+- Recherche et filtrage
+- Gestion du panier
+- Passage de commande
+- Suivi des commandes
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+# ⚙️ Fonctionnalités
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🧑‍💼 Espace Admin
 
-## Contributing
+### 🔑 Authentification
+- Connexion sécurisée via Laravel Breeze/UI
+- Accès restreint aux routes `/admin`
+- Middleware de protection (role: admin)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 📦 Gestion du Catalogue
 
-## Code of Conduct
+#### Catégories
+- CRUD
+    - nom
+    - slug
+    - description
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Produits
+- CRUD
+    - nom (obligatoire)
+    - référence unique (obligatoire)
+    - description
+    - prix (min: 0)
+    - stock
+    - image (jpeg/png/jpg – max 2Mo)
+    - catégorie (relation 1:N)
+    - fournisseur (relation 1:N)
+    - Soft Delete (archivage)
 
-## Security Vulnerabilities
+### 🏢 Gestion des Fournisseurs
+- CRUD
+    - nom
+    - email (unique)
+    - ville
+    - téléphone
+- Relation 1:N avec Produits
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 📊 Tableau de Bord
+- Affichage des produits avec stock critique
+- Vue globale des commandes
+- Modification du statut :
+    - En attente
+    - Expédiée
+    - Livrée
+    - Annulée
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 👤 Espace Client
+
+### 📝 Authentification
+- Inscription
+- Connexion
+- Gestion du profil :
+    - adresse
+    - téléphone
+
+### 🛍 Navigation & Recherche
+- Consultation des catégories
+- Filtrage des produits par catégorie
+- Recherche par nom
+- Fiche produit :
+    - image
+    - prix
+    - disponibilité
+
+### 🛒 Panier
+- Ajout de produits
+- Modification des quantités
+- Vérification du stock
+- Message d’erreur si quantité > stock
+
+### 📦 Commande
+- Validation uniquement si utilisateur authentifié
+- Enregistrement :
+    - identité client
+    - liste des produits
+    - prix figé au moment de l’achat
+    - total calculé
+    - statut
+- Transaction SQL pour :
+    - enregistrer la commande
+    - décrémenter le stock
+    - garantir atomicité
+
+### 📜 Historique
+- Consultation des commandes
+- Suivi du statut
+
+---
+
+# 🗂 Modélisation des Données
+
+## Relations Eloquent
+
+- 1:N → Catégorie → Produits
+- 1:N → Fournisseur → Produits
+- 1:N → Utilisateur → Commandes
+- N:N → Commandes ↔ Produits (table pivot : `order_product`)
+
+---
+
+# 🔒 Contraintes Techniques
+
+## ✅ Validation
+- Prix ≥ 0
+- Email valide
+- Référence produit unique
+- Email utilisateur/fournisseur unique
+- Champs obligatoires : nom, prix, catégorie, fournisseur
+- Image validée (type + taille)
+
+## 🔐 Sécurité
+- Middleware pour protéger `/admin`
+- Authentification Laravel
+- Protection CSRF
+- Validation côté serveur
