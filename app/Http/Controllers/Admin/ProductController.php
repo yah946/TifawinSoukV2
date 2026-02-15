@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Schema;
 
+use Illuminate\Http\RedirectResponse;
 class ProductController extends Controller
 {
     /**
@@ -167,6 +168,26 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index');
     }
 
+
+ public function restore(Product $product): RedirectResponse
+    {
+        $product->restore();
+        return redirect()->route('admin.products.trashed')->with('success', 'Product restored successfully');
+    }
+
+
+
+    public function trashed()
+{
+    $products = Product::onlyTrashed()->paginate(10);
+    return view('admin.products.trashed', compact('products'));
+}
+
+  public function forceDestroy(Product $product)
+    {
+        $product->forceDelete();
+        return redirect()->route('admin.products.trashed')->with('success', 'Products permanently deleted successfully');
+    }
 }
 
 

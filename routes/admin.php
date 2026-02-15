@@ -14,32 +14,44 @@ Route::name('admin.')
     ->group(function () {
         // resource of admin
         Route::get('', [HomeController::class, 'dashboard'])
-                ->name('dashboard');
+            ->name('dashboard');
 
         // Resource of products
-         Route::controller(ProductController::class)
-             ->group(function () {
-                 Route::get('/products', 'index')
-                     ->name('products.index');
+        Route::controller(ProductController::class)
+            ->group(function () {
+                Route::get('/products', 'index')
+                    ->name('products.index');
 
-                 Route::get('/products/create', 'create')
-                     ->name('products.create');
+                Route::get('/products/create', 'create')
+                    ->name('products.create');
 
-                 Route::post('/products', 'store')
-                     ->name('products.store');
+                Route::post('/products', 'store')
+                    ->name('products.store');
 
-                 Route::get('/products/{product}','show')
-                     ->name('products.show');
+                Route::get('/products/trashed', 'trashed')
+                    ->name('products.trashed');
 
-                 Route::get('/products/{product}/edit','edit')
-                     ->name('products.edit');
+                Route::put('/products/{product}/restore', 'restore')
+                    ->withTrashed()
+                    ->name('products.restore');
 
-                 Route::put('/products/{product}/update','update')
-                     ->name('products.update');
+                Route::get('/products/{product}', 'show')
+                    ->name('products.show');
 
-                 Route::delete('/products/{product}','destroy')
-                     ->name('products.destroy');
-             });
+                Route::get('/products/{product}/edit', 'edit')
+                    ->name('products.edit');
+
+
+                Route::put('/products/{product}/update', 'update')
+                    ->name('products.update');
+
+                Route::delete('/products/{product}', 'destroy')
+                    ->name('products.destroy');
+
+                Route::delete('/products/{product}/force-destroy', 'forceDestroy')
+                    ->withTrashed()
+                    ->name('products.force-destroy');
+            });
 
         // Resource of categories
         Route::controller(CategoryController::class)
@@ -50,20 +62,36 @@ Route::name('admin.')
                 Route::get('/categories/create', 'create')
                     ->name('categories.create');
 
+
                 Route::post('/categories', 'store')
                     ->name('categories.store');
 
-                Route::get('/categories/{category}','show')
+                Route::get('/categories/trashed', 'trashed')
+                    ->name('categories.trashed');
+
+                Route::put('/category/{category}/restore', 'restore')
+                    ->withTrashed()
+                    ->name('category.restore');
+
+
+                Route::get('/categories/{category}', 'show')
                     ->name('categories.show');
 
-                Route::get('/categories/{category}/edit','edit')
+                Route::get('/categories/{category}/edit', 'edit')
                     ->name('categories.edit');
 
-                Route::put('/categories/{category}/update','update')
+
+
+
+                Route::put('/categories/{category}/update', 'update')
                     ->name('categories.update');
 
-                Route::delete('/categories/{category}','destroy')
+                Route::delete('/categories/{category}', 'destroy')
                     ->name('categories.destroy');
+
+                Route::delete('/category/{category}/force-destroy', 'forceDestroy')
+                    ->withTrashed()
+                    ->name('category.force-destroy');
             });
 
         // Resource of supplier

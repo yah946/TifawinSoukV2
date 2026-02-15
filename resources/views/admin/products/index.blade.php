@@ -5,11 +5,17 @@
 @section('content')
 
     <h1 class="text-2xl font-bold mb-6">List of Products</h1>
-
+    <div class="w-full flex justify-end gap-4">
+         <a href="{{ route('admin.products.trashed') }}"
+       class="inline-block mb-4 px-4 py-2  text-white rounded-lg bg-gray-600 hover:bg-gray-700 transition">
+       <i class="fa-regular fa-folder-open"></i>  Accéder aux Archives    
+    </a>
     <a href="{{ route('admin.products.create') }}"
        class="inline-block mb-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-        Create Product
+        <i class="fa-solid fa-plus"></i>  Create Product
     </a>
+   
+    </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @foreach ($products as $product)
