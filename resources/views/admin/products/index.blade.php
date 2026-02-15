@@ -52,12 +52,13 @@
                     </div>
 
                     <div class="mt-3 text-gray-600 text-sm">
-                        <p>Price: ${{ $product->price }}</p>
+                        <p>Price: {{ $product->price }} Dh</p>
                         <p>Stock: {{ $product->stock }}</p>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
+    {{$products->links()}}
 
 @endsection

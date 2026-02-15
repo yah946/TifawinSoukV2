@@ -9,6 +9,7 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Schema;
 
 class ProductController extends Controller
 {
@@ -17,7 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(15);
         return view("admin.products.index", compact("products"));
     }
 
@@ -28,8 +29,6 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $suppliers = Supplier::all();
-
-
         return view('admin.products.create', compact('categories', 'suppliers'));
     }
 
@@ -167,4 +166,8 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('admin.products.index');
     }
+
 }
+
+
+

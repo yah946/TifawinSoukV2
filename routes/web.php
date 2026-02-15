@@ -8,11 +8,9 @@ Route::controller(ProductController::class)
     ->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/show/{product}', 'show')
-            ->name('show')
-        ;
+            ->name('show');
         Route::get('filter', 'filter')
-            ->name('filter')
-        ;
+            ->name('filter');
     });
 
 require_once __DIR__ ."/admin.php";
